@@ -22,17 +22,29 @@ room.door.onOpen = function() { // door 상태가 open으로 변경되면 실행
 	room.door.setSprite("문-오른쪽-열림.png") // 열린 문으로 변경
 }
 
+
 room.keypad = room.createObject("keypad", "숫자키-우.png") // 오브젝트 생성
 room.keypad.setWidth(50) // 크기 조절
 room.locateObject(room.keypad, 930, 250) // 위치 변경
 
 room.keypad.onClick = function() {
-	printMessage("올해는 몇년도?")
-	showKeypad("number", "2019" , function(){ // 키패드 1 - 숫자4자리
+	printMessage("비밀번호를 입력해보자.")
+	showKeypad("number", "8632" , function(){ // 키패드 1 - 숫자4자리
 		room.door.unlock() // door의 잠금을 연다
 		printMessage("잠금장치가 열리는 소리가 들렸다.")
 	 })
 }
+
+
+room.picture = room.createObject("picture", "액자3-1.png")
+room.picture.setWidth(150)
+room.locateObject(room.picture, 250, 300)
+
+room.picture.onClick = function() {
+	printMessage("모나리자의 그림이다")
+	showImageViewer("모나리자.png") // 이미지 위에 텍스트 출력
+	 }
+
 
 room.shelf = room.createObject("shelf", "선반-좌.png")
 room.shelf.setWidth(460)
@@ -43,6 +55,33 @@ room.book.setWidth(80)
 room.locateObject(room.book, 100, 140)
 room.book.onClick = function() {
 	showImageViewer("종이.png", "책.txt"); // 이미지 출력
+	printMessage("왜 대문자가 섞여있을까? 원소들이 생각난다")
+}
+
+room.periodic = room.createObject("periodic", "주기율표-1.png")
+room.periodic.setWidth(100)
+room.locateObject(room.periodic, 700, 650)
+room.periodic.hide() 
+room.periodic.onClick = function() {
+	printMessage("어딘가 이상한 주기율표가 있다")
+	showImageViewer("주기율표.png")
+	 }
+
+room.note = room.createObject("note", "노트.png")
+room.note.setWidth(100)
+room.locateObject(room.note, 500, 650)
+room.note.hide() 
+room.note.onClick = function() {
+	printMessage("책 사이에서 종이가 떨어졌다")
+	room.periodic.show()
+	 }
+
+room.carpet = room.createObject("carpet", "카펫.png")
+room.carpet.setWidth(350)
+room.locateObject(room.carpet, 400, 550)
+room.carpet.onClick = function() {
+	printMessage("카펫 밑에서 책을 발견했다")
+	room.note.show()
 }
 
 room.phone = room.createObject("phone", "전화기-오른쪽.png")
@@ -58,6 +97,7 @@ room.locateObject(room.radio, 100, 550)
 room.radio.onClick = function() {
 	printMessage("재생버튼을 눌러보세요")
 	showAudioPlayer("chick.wav") // 플레이어
+
 }
 
 room.table = room.createObject("table", "테이블-우.png") // 테이블 생성
@@ -72,7 +112,7 @@ room.mac.onClick = function() {
 }
 
 
-room.head = room.createObject("head", "드라이버비트.png")
+/*room.head = room.createObject("head", "드라이버비트.png")
 room.handle = room.createObject("handle", "드라이버손잡이.png")
 room.screwdriver = room.createObject("screwdriver", "드라이버.png")
 
@@ -98,7 +138,8 @@ room.shelf.onClick = function() {
 	} else {
 		printMessage("나사가 헐거워져있다.")
 	}
-}
+}*/
+
 
 roomLight = true // 플래그 변수
 
