@@ -95,8 +95,8 @@ room.radio = room.createObject("radio", "라디오.png")
 room.radio.setWidth(90)
 room.locateObject(room.radio, 100, 550)
 room.radio.onClick = function() {
-	printMessage("재생버튼을 눌러보세요")
-	showAudioPlayer("chick.wav") // 플레이어
+	printMessage("라디오에서 음악이 나오고있다. 의미는 없어 보인다.")
+	showAudioPlayer("radio.wav") // 플레이어
 
 }
 
@@ -108,11 +108,13 @@ room.mac = room.createObject("mac", "맥-우.png") // 맥 생성
 room.mac.setWidth(130)
 room.locateObject(room.mac, 560, 270)
 room.mac.onClick = function() {
-	showVideoPlayer("Wildlife.wmv") // 비디오 재생
+	showImageViewer("바탕화면.PNG")
+	printMessage("컴퓨터 바탕화면에 그림이 그려져있다.")
+	//showVideoPlayer("Wildlife.wmv") // 비디오 재생
 }
 
 
-/*room.head = room.createObject("head", "드라이버비트.png")
+room.head = room.createObject("head", "드라이버비트.png")
 room.handle = room.createObject("handle", "드라이버손잡이.png")
 room.screwdriver = room.createObject("screwdriver", "드라이버.png")
 
@@ -120,8 +122,8 @@ room.head.setWidth(50)
 room.handle.setWidth(50)
 room.screwdriver.hide() // 조합 될 아이템 숨기기
 
-room.locateObject(room.head, 500, 650)
-room.locateObject(room.handle, 600, 650)
+room.locateObject(room.head, 1000, 650)
+room.locateObject(room.handle, 1200, 550)
 
 room.head.onClick = function(){
 	room.head.pick()
@@ -138,7 +140,7 @@ room.shelf.onClick = function() {
 	} else {
 		printMessage("나사가 헐거워져있다.")
 	}
-}*/
+}
 
 
 roomLight = true // 플래그 변수
@@ -185,20 +187,34 @@ room2.cupboard.onClick = function() { // 클릭했을 때
 		room2.cupboard.close() // close
 	} else if(room2.cupboard.isClosed()) { // Closed 상태인 경우
 		room2.cupboard.open() // open
+		printMessage("찬장이 열렸다.")
 	} else { 
 		// do nothing
 	}
 }
 
-room2.cupboard.onOpen = function() {
+	room2.cupboard.onOpen = function() {
 	room2.cupboard.setSprite("찬장-2-열림.png") // 열린 그림으로 변경
 	room2.key.show() // key 보이기
 }
-
 room2.cupboard.onClose = function() {
 	room2.cupboard.setSprite("찬장-2-닫힘.png") // 닫힌 그림으로 변경
 	room2.key.hide() // key 숨기기
 }
+
+room2.key.onClick = function(){
+	room2.key.pick()
+	printMessage("열쇠를 발견했다.")
+	}
+
+room2.photo = room2.createObject("photo", "방2-힌트1.png")
+room2.photo.setWidth(100)
+room2.locateObject(room2.photo, 700, 650)
+room2.photo.onClick = function() {
+	printMessage("이 방의 사진이다.")
+	showImageViewer("방2-힌트.png")
+	 }
+
 
 room2.door2 = room2.createObject("door2", "문3-좌-닫힘.png")
 room2.door2.setWidth(136)
@@ -221,14 +237,17 @@ room2.closet.onDrag = function(direction){ // 드래그 모션 direction - Up, D
 }
 
 room2.door2.onClick = function() { // door2를 클릭했을 때
-	if(room2.door2.isClosed()){ // door2가 closed 상태이면
+	if(game.getHandItem() == room2.key) { 
+		if(room2.door2.isClosed()){ // door2가 closed 상태이면
 		room2.door2.open() // door2의 상태를 open으로 바꿈
 	} else if (room2.door2.isOpened()){ // door2가 opened 상태이면
 		game.clear() // 게임 클리어
 	} else {
-		// do nothing
+		//do nothing
 	}
 }
+}
+
 
 room2.door2.onOpen = function() {
 	room2.door2.setSprite("문3-좌-열림.png")
